@@ -1,6 +1,9 @@
 {
 	"ImportPath": "github.com/opencontainers/runc",
 	"GoVersion": "go1.4.2",
+	"Packages": [
+		"./..."
+	],
 	"Deps": [
 		{
 			"ImportPath": "github.com/Sirupsen/logrus",
@@ -50,6 +53,15 @@
 		{
 			"ImportPath": "github.com/golang/protobuf/proto",
 			"Rev": "f7137ae6b19afbfd61a94b746fda3b3fe0491874"
+		},
+		{
+			"ImportPath": "github.com/gorilla/websocket",
+			"Rev": "3986be78bf859e01f01af631ad76da5b269d270c"
+		},
+		{
+			"ImportPath": "github.com/lxc/lxd/shared",
+			"Comment": "lxd-0.26-27-gf4625a8",
+			"Rev": "f4625a815d5703b59d78b5b452f53136873d95ba"
 		},
 		{
 			"ImportPath": "github.com/opencontainers/specs",
