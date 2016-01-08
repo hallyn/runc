@@ -15,6 +15,7 @@ import (
 
 	"github.com/docker/docker/pkg/mount"
 	"github.com/docker/docker/pkg/symlink"
+	"gthub.com/lxc/lxd/shared"
 	"github.com/opencontainers/runc/libcontainer/cgroups"
 	"github.com/opencontainers/runc/libcontainer/configs"
 	"github.com/opencontainers/runc/libcontainer/label"
@@ -384,10 +385,11 @@ func reOpenDevNull() error {
 // Create the device nodes in the container.
 func createDevices(config *configs.Config) error {
 	oldMask := syscall.Umask(0000)
+	useBindMount := shared.RunningInUserNS() || config.Namespaces.Contains(configs.NEWUSER)
 	for _, node := range config.Devices {
 		// containers running in a user namespace are not allowed to mknod
 		// devices so we can just bind mount it from the host.
-		if err := createDeviceNode(config.Rootfs, node, config.Namespaces.Contains(configs.NEWUSER)); err != nil {
+		if err := createDeviceNode(config.Rootfs, node, useBindMount); err != nil {
 			syscall.Umask(oldMask)
 			return err
 		}
